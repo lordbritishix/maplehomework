@@ -1,0 +1,53 @@
+buildscript {
+	dependencies {
+		classpath("org.postgresql:postgresql:42.5.1")
+		classpath("org.flywaydb:flyway-database-postgresql:10.6.0")
+	}
+}
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.2'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id "org.flywaydb.flyway" version "10.6.0"
+}
+
+group = 'com.lordbritishix'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+	implementation 'org.springframework.boot:spring-boot-starter-logging:3.2.2'
+	implementation 'org.postgresql:postgresql:42.5.1'
+	implementation 'org.flywaydb:flyway-database-postgresql:10.6.0'
+	implementation("org.flywaydb:flyway-core:10.6.0")
+	implementation("org.flywaydb:flyway-database-postgresql:10.6.0")
+
+	compileOnly 'org.projectlombok:lombok:1.18.30'
+	annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.1'
+	testImplementation 'org.mockito:mockito-core:5.10.0'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+flyway {
+	url = 'jdbc:postgresql://localhost:5432/maple'
+	user = 'postgres'
+	password = '12345678'
+}
